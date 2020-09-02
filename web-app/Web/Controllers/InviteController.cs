@@ -1,23 +1,23 @@
-﻿using Dapper;
-using Runly.Examples.WebApp.Web.Models;
-using Runly.Examples.WebApp.Web.Services;
+﻿using Runly.Examples.WebApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Runly.Examples.WebApp.Web.Config;
+using Runly.Examples.WebApp.Jobs;
 
 namespace Runly.Examples.WebApp.Web.Controllers
 {
 	public class InviteController : Controller
 	{
-		readonly DbConnection db;
-		readonly IJobQueue jobs;
+		readonly RunlyOptions opts;
+		readonly IRunClient runs;
 
-		public InviteController(DbConnection db, IJobQueue jobs)
+		public InviteController(IOptionsSnapshot<RunlyOptions> opts, IRunClient runs)
 		{
-			this.db = db;
-			this.jobs = jobs;
+			this.opts = opts.Value;
+			this.runs = runs;
 		}
 
 		public IActionResult Index() => View();
@@ -25,17 +25,7 @@ namespace Runly.Examples.WebApp.Web.Controllers
 		[HttpPost]
 		public async Task<IActionResult> InviteUsers(InvitationModel data)
 		{
-			// Do the critical path work: actually get
-			// the users/emails into the system.
-			await InsertUsersIntoDatabase(data.EmailList);
-
-			// Then queue the non-critical path work
-			// in a separate async-job: email
-			// invitations will be sent to each user.
-			// This also makes the job of sending
-			// emails fault tolerant in case of
-			// temporary errors while sending a message.
-			Guid runId = await jobs.SendPendingInvitations();
+			Guid runId = await SendInvitations(data.EmailList);
 
 			return View("Results", new RunResultsModel
 			{
@@ -43,19 +33,26 @@ namespace Runly.Examples.WebApp.Web.Controllers
 			});
 		}
 
-		async Task InsertUsersIntoDatabase(IEnumerable<string> emails)
+		public async Task<Guid> SendInvitations(IEnumerable<string> emailList)
 		{
-			await db.OpenAsync();
-
-			using (var tx = await db.BeginTransactionAsync())
-			{
-				foreach (string email in emails)
+			var run = await runs.Enqueue<InvitationEmailer, InvitationEmailerConfig>(
+				opts.Org,
+				opts.Env,
+				new InvitationEmailerConfig
 				{
-					await db.ExecuteAsync("insert into [User] (Email) values (@Email)", new { email }, tx);
-				}
+					EmailList = emailList,
+					Execution = new ExecutionConfig
+					{
+						// let's send 50 emails at a time
+						ParallelTaskCount = 50,
 
-				await tx.CommitAsync();
-			}
+						// don't stop the job unless we get over 100 failed items
+						ItemFailureCountToStopJob = 100
+					}
+				}
+			);
+
+			return run.Id;
 		}
 	}
 }

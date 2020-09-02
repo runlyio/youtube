@@ -1,7 +1,4 @@
-﻿using Runly;
-using System.Data.Common;
-using System.Data.SQLite;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Runly.Examples.WebApp.Jobs
 {
@@ -14,10 +11,6 @@ namespace Runly.Examples.WebApp.Jobs
 				{
 					// Register the deps our job needs using the job config.
 					// https://www.runly.io/docs/dependency-injection/#registering-dependencies
-
-					services.AddScoped<DbConnection, InvitationEmailerConfig>((s, cfg) =>
-						new SQLiteConnection(cfg.ConnectionString)
-					);
 
 					services.AddScoped<IEmailService, InvitationEmailerConfig>((s, cfg) =>
 						new FakeEmailService(cfg.EmailServiceApiKey)
