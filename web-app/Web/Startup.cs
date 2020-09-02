@@ -1,5 +1,5 @@
-using Examples.WebApp.Web.Config;
-using Examples.WebApp.Web.Services;
+using Runly.Examples.WebApp.Web.Config;
+using Runly.Examples.WebApp.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -2,7 +2,7 @@ using Dapper;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Examples.WebApp.Web.Services
+namespace Runly.Examples.WebApp.Web.Services
 {
 	public class Database
 	{

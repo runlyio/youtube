@@ -1,4 +1,4 @@
-namespace Examples.WebApp.Web.Config
+namespace Runly.Examples.WebApp.Web.Config
 {
 	public class AppOptions
 	{

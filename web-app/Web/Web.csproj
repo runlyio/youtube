@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
-    <AssemblyName>Examples.WebApp.Web</AssemblyName>
-    <RootNamespace>Examples.WebApp.Web</RootNamespace>
+    <AssemblyName>Runly.Examples.WebApp.Web</AssemblyName>
+    <RootNamespace>Runly.Examples.WebApp.Web</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

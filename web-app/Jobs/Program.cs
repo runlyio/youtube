@@ -3,7 +3,7 @@ using System.Data.Common;
 using System.Data.SQLite;
 using System.Threading.Tasks;
 
-namespace Examples.WebApp.Jobs
+namespace Runly.Examples.WebApp.Jobs
 {
 	class Program
 	{

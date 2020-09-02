@@ -1,6 +1,6 @@
 using System;
 
-namespace Examples.WebApp.Web.Models
+namespace Runly.Examples.WebApp.Web.Models
 {
 	public class RunResultsModel
 	{

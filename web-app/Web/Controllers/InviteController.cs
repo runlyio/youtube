@@ -1,13 +1,13 @@
 ﻿using Dapper;
-using Examples.WebApp.Web.Models;
-using Examples.WebApp.Web.Services;
+using Runly.Examples.WebApp.Web.Models;
+using Runly.Examples.WebApp.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Examples.WebApp.Web.Controllers
+namespace Runly.Examples.WebApp.Web.Controllers
 {
 	public class InviteController : Controller
 	{

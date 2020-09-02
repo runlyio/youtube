@@ -1,11 +1,11 @@
-using Examples.WebApp.Jobs;
-using Examples.WebApp.Web.Config;
+using Runly.Examples.WebApp.Jobs;
+using Runly.Examples.WebApp.Web.Config;
 using Microsoft.Extensions.Options;
 using Runly;
 using System;
 using System.Threading.Tasks;
 
-namespace Examples.WebApp.Web.Services
+namespace Runly.Examples.WebApp.Web.Services
 {
 	public interface IJobQueue
 	{

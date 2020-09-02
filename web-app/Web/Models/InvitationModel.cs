@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Examples.WebApp.Web.Models
+namespace Runly.Examples.WebApp.Web.Models
 {
 	public class InvitationModel
 	{

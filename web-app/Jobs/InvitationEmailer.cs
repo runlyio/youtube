@@ -6,7 +6,7 @@ using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examples.WebApp.Jobs
+namespace Runly.Examples.WebApp.Jobs
 {
 	public class InvitationEmailer : Job<InvitationEmailerConfig, string, DbConnection, IEmailService>
 	{

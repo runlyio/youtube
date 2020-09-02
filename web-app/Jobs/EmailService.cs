@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Examples.WebApp.Jobs
+namespace Runly.Examples.WebApp.Jobs
 {
 	public interface IEmailService
 	{
